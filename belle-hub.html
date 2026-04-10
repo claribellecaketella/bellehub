@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belle's Hub ✦</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink:#ff6eb4; --yellow:#ffe156; --mint:#5ef0c8;
+    --lavender:#c9a8ff; --peach:#ffb07c; --sky:#7dd8ff;
+    --bg:#fff0f8; --white:#ffffff; --dark:#2d1f3d;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);font-family:'Nunito',sans-serif;min-height:100vh;overflow-x:hidden;}
+
+  /* blobs */
+  .bg-blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:0.3;animation:blobFloat linear infinite;}
+  .blob1{width:400px;height:400px;background:var(--pink);top:-100px;left:-100px;animation-duration:20s;}
+  .blob2{width:280px;height:280px;background:var(--mint);top:30%;right:-80px;animation-duration:25s;animation-delay:-8s;}
+  .blob3{width:320px;height:320px;background:var(--lavender);bottom:-80px;left:20%;animation-duration:22s;animation-delay:-5s;}
+  .blob4{width:180px;height:180px;background:var(--yellow);top:60%;left:5%;animation-duration:18s;animation-delay:-12s;}
+  @keyframes blobFloat{0%,100%{transform:translateY(0) scale(1);}33%{transform:translateY(-25px) scale(1.04);}66%{transform:translateY(18px) scale(0.96);}}
+
+  /* sparkles */
+  .sparkles{position:fixed;inset:0;pointer-events:none;z-index:0;}
+  .sparkle{position:absolute;animation:sparkleDrift linear infinite;opacity:0.55;}
+  @keyframes sparkleDrift{0%{transform:translateY(100vh) rotate(0deg);opacity:0;}10%{opacity:0.55;}90%{opacity:0.55;}100%{transform:translateY(-100px) rotate(360deg);opacity:0;}}
+
+  /* burst */
+  .burst{position:fixed;pointer-events:none;z-index:9999;font-size:1.3rem;animation:burstAnim 0.65s ease-out forwards;}
+  @keyframes burstAnim{0%{opacity:1;transform:scale(0.5) translateY(0);}100%{opacity:0;transform:scale(1.4) translateY(-55px);}}
+
+  /* layout */
+  .wrapper{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:32px 20px 80px;}
+
+  /* header */
+  header{text-align:center;margin-bottom:32px;}
+  .header-badge{display:inline-block;background:var(--pink);color:white;font-family:'Fredoka One',sans-serif;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;padding:3px 14px;border-radius:99px;margin-bottom:10px;box-shadow:0 4px 0 rgba(0,0,0,0.13);animation:bounceIn 0.6s cubic-bezier(.68,-0.55,.27,1.55) both;}
+  h1{font-family:'Fredoka One',sans-serif;font-size:2.8rem;color:var(--dark);line-height:1;animation:bounceIn 0.7s cubic-bezier(.68,-0.55,.27,1.55) 0.1s both;}
+  h1 .pop{color:var(--pink);}
+  h1 .star{display:inline-block;animation:spin 4s linear infinite;}
+  .subtitle{font-size:0.85rem;color:#9b7ebd;margin-top:6px;font-weight:700;animation:bounceIn 0.7s cubic-bezier(.68,-0.55,.27,1.55) 0.2s both;}
+  .clock-pill{display:inline-flex;align-items:center;gap:6px;background:var(--white);border:2.5px solid var(--dark);border-radius:99px;padding:5px 16px;font-family:'Fredoka One',sans-serif;font-size:0.95rem;color:var(--dark);margin-top:10px;box-shadow:3px 3px 0 var(--dark);animation:bounceIn 0.7s cubic-bezier(.68,-0.55,.27,1.55) 0.3s both;}
+  @keyframes bounceIn{from{opacity:0;transform:scale(0.6) translateY(20px);}to{opacity:1;transform:scale(1) translateY(0);}}
+  @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+  /* section */
+  .section-label{font-family:'Fredoka One',sans-serif;font-size:0.9rem;color:var(--dark);background:var(--white);border:2.5px solid var(--dark);border-radius:99px;display:inline-flex;align-items:center;gap:5px;padding:3px 14px;margin:22px 0 10px;box-shadow:2px 2px 0 var(--dark);}
+
+  /* grid — tighter */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;}
+
+  /* card */
+  .card{background:var(--white);border:2.5px solid var(--dark);border-radius:16px;padding:14px 16px;box-shadow:0 6px 0 rgba(0,0,0,0.11);transition:transform 0.15s,box-shadow 0.15s;animation:cardPop 0.5s cubic-bezier(.68,-0.55,.27,1.55) both;position:relative;overflow:hidden;}
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--card-color,var(--pink));border-radius:16px 16px 0 0;}
+  .card:hover{transform:translateY(-5px) rotate(-0.8deg);box-shadow:0 14px 0 rgba(0,0,0,0.11);}
+  .card:active{transform:translateY(2px);box-shadow:1px 1px 0 rgba(0,0,0,0.11);}
+  @keyframes cardPop{from{opacity:0;transform:scale(0.72) translateY(28px);}to{opacity:1;transform:scale(1) translateY(0);}}
+  .card:nth-child(1){animation-delay:0.08s}.card:nth-child(2){animation-delay:0.13s}.card:nth-child(3){animation-delay:0.18s}.card:nth-child(4){animation-delay:0.23s}.card:nth-child(5){animation-delay:0.28s}.card:nth-child(6){animation-delay:0.33s}
+
+  /* card header row */
+  .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+  .card-icon{font-size:1.6rem;line-height:1;}
+  .card-tag{font-family:'Fredoka One',sans-serif;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;background:var(--card-color,var(--pink));color:white;padding:2px 9px;border-radius:99px;border:2px solid var(--dark);}
+  .card h3{font-family:'Fredoka One',sans-serif;font-size:0.98rem;color:var(--dark);margin-bottom:2px;}
+  .card p{font-size:0.72rem;color:#9b7ebd;font-weight:700;line-height:1.35;margin-bottom:8px;}
+
+  /* link pills — compact inline row */
+  .links{display:flex;flex-wrap:wrap;gap:5px;}
+  .link-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:var(--card-bg,#fff5fb);border:2px solid var(--dark);border-radius:99px;text-decoration:none;color:var(--dark);font-family:'Nunito',sans-serif;font-size:0.7rem;font-weight:800;box-shadow:2px 2px 0 var(--dark);transition:transform 0.1s,box-shadow 0.1s,background 0.1s;white-space:nowrap;}
+  .link-btn:hover{background:var(--card-color,var(--pink));color:white;transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--dark);}
+  .link-btn:active{transform:translate(1px,1px);box-shadow:0px 0px 0 var(--dark);}
+  .link-btn .li{font-size:0.85rem;}
+  .link-btn .arrow{opacity:0.4;font-size:0.7rem;}
+  .link-btn:hover .arrow{opacity:1;color:white;}
+
+  .empty-links{font-size:0.7rem;color:#ccc;font-weight:700;padding:4px 0;}
+
+  /* sound btn */
+  .sound-btn{position:fixed;bottom:20px;right:20px;background:var(--white);border:2.5px solid var(--dark);border-radius:99px;padding:8px 16px;font-family:'Fredoka One',sans-serif;font-size:0.85rem;color:var(--dark);box-shadow:3px 3px 0 var(--dark);cursor:pointer;z-index:100;transition:transform 0.1s,box-shadow 0.1s;display:flex;align-items:center;gap:5px;}
+  .sound-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--dark);}
+  .sound-btn:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--dark);}
+
+  footer{text-align:center;margin-top:40px;font-family:'Fredoka One',sans-serif;font-size:0.8rem;color:#c9a8ff;}
+</style>
+</head>
+<body>
+
+<div class="bg-blobs">
+  <div class="blob blob1"></div><div class="blob blob2"></div>
+  <div class="blob blob3"></div><div class="blob blob4"></div>
+</div>
+<div class="sparkles" id="sparkles"></div>
+
+<div class="wrapper">
+  <header>
+    <div class="header-badge">✦ Caketella Systems ✦</div>
+    <h1><span class="pop">Belle's</span> Hub <span class="star">✦</span></h1>
+    <p class="subtitle">your little command center 🎀</p>
+    <div class="clock-pill">🕐 <span id="time">--:--:--</span> · <span id="date">---</span></div>
+  </header>
+
+  <!-- CAKETELLA -->
+  <div class="section-label">🛒 Caketella (Shopify)</div>
+  <div class="grid">
+    <div class="card" style="--card-color:#ff6eb4;--card-bg:#fff0f8;">
+      <div class="card-top"><span class="card-icon">📊</span><span class="card-tag">Shopify</span></div>
+      <h3>Order Tracker</h3>
+      <p>Main order sync sheet by paid date.</p>
+      <div class="links">
+        <a class="link-btn" href="https://docs.google.com/spreadsheets/d/1FhkTqgPo3Mhf4tsJW9yCOzV6xFnnGT9wzAXXoQIOPoc/edit" target="_blank">
+          <span class="li">📄</span> Sheet <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+    <div class="card" style="--card-color:#ffb07c;--card-bg:#fff8f0;">
+      <div class="card-top"><span class="card-icon">🍰</span><span class="card-tag">Dashboard</span></div>
+      <h3>Ops Dashboard</h3>
+      <p>Live ops + fulfilment dashboard.</p>
+      <div class="links">
+        <a class="link-btn" href="https://ops-dashboard-1v2.pages.dev/" target="_blank">
+          <span class="li">🌐</span> Dashboard <span class="arrow">↗</span>
+        </a>
+        <a class="link-btn" href="https://docs.google.com/spreadsheets/d/165NsavHNWvlMf-yTI9yptaiF_Fsu_OmFwkHSeWyKQto/edit" target="_blank">
+          <span class="li">📄</span> Sheet <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- KETOCAKE -->
+  <div class="section-label">🥑 Ketocake (WooCommerce)</div>
+  <div class="grid">
+    <div class="card" style="--card-color:#5ef0c8;--card-bg:#f0fff9;">
+      <div class="card-top"><span class="card-icon">📊</span><span class="card-tag">WooCommerce</span></div>
+      <h3>Caketella Order Tracker</h3>
+      <p>WooCommerce orders for Ketocake.</p>
+      <div class="links">
+        <a class="link-btn" href="https://docs.google.com/spreadsheets/d/1ErwQzkkttsFu7XLltURLXSiz2IO3Onunj9oyg5ZK6G0/edit" target="_blank">
+          <span class="li">📄</span> Sheet <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+    <div class="card" style="--card-color:#5ef0c8;--card-bg:#f0fff9;">
+      <div class="card-top"><span class="card-icon">👨‍🍳</span><span class="card-tag">Kitchen</span></div>
+      <h3>Kitchen Dashboard</h3>
+      <p>Kitchen team view for orders and tasks.</p>
+      <div class="links">
+        <a class="link-btn" href="https://claribellecaketella.github.io/caketella-kitchen/" target="_blank">
+          <span class="li">🌐</span> Dashboard <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DANA -->
+  <div class="section-label">📈 Sales & Analytics (Dana)</div>
+  <div class="grid">
+    <div class="card" style="--card-color:#7dd8ff;--card-bg:#f0f8ff;">
+      <div class="card-top"><span class="card-icon">📋</span><span class="card-tag">Reference</span></div>
+      <h3>Dana's Reference</h3>
+      <p>Sales reference + paid date data.</p>
+      <div class="links">
+        <a class="link-btn" href="https://docs.google.com/spreadsheets/d/1jHFAwEp6-pmUo_MK0gZdsDwMhtgsA3T18FrXWdJKnAw/edit" target="_blank">
+          <span class="li">📄</span> Reference <span class="arrow">↗</span>
+        </a>
+        <a class="link-btn" href="https://docs.google.com/spreadsheets/d/1syo-LrDkRpCTbRhHVXGOb83EwgCNi7E_jSasybf6dSw/edit" target="_blank">
+          <span class="li">📄</span> Paid Date <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTS & TOOLS -->
+  <div class="section-label">🤖 Bots & Tools</div>
+  <div class="grid">
+    <div class="card" style="--card-color:#c9a8ff;--card-bg:#f8f0ff;">
+      <div class="card-top"><span class="card-icon">✅</span><span class="card-tag">Telegram Bot</span></div>
+      <h3>Belle Checklist</h3>
+      <p>Personal checklist via @Bellechecklist_bot.</p>
+      <div class="links">
+        <a class="link-btn" href="https://claribellecaketella.github.io/bellechecklist/" target="_blank">
+          <span class="li">🌐</span> App <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+    <div class="card" style="--card-color:#ffe156;--card-bg:#fffdf0;">
+      <div class="card-top"><span class="card-icon">📉</span><span class="card-tag">FCPO</span></div>
+      <h3>FCPO Recorder</h3>
+      <p>Bursa Malaysia derivatives stats.</p>
+      <div class="links">
+        <a class="link-btn" href="https://docs.google.com/spreadsheets/d/1rC7koSGosspruwkaXf2Wr2-bALXVDcL_VUhxgjJEo1w/edit" target="_blank">
+          <span class="li">📄</span> Sheet <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<button class="sound-btn" id="soundBtn" onclick="toggleSound()">🔊 Sound ON</button>
+<footer>made with 🎀 for belle · caketella sdn bhd</footer>
+
+<script>
+  // Clock
+  function updateClock(){
+    const n=new Date();
+    document.getElementById('time').textContent=n.toLocaleTimeString('en-MY',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+    document.getElementById('date').textContent=n.toLocaleDateString('en-MY',{weekday:'short',day:'numeric',month:'short'});
+  }
+  updateClock(); setInterval(updateClock,1000);
+
+  // Sparkles
+  const emojis=['✦','🌸','⭐','🎀','💫','🌟','✨','🍬','🎈','💖'];
+  const sc=document.getElementById('sparkles');
+  for(let i=0;i<16;i++){
+    const el=document.createElement('div');
+    el.className='sparkle';
+    el.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    el.style.cssText=`left:${Math.random()*100}vw;font-size:${0.7+Math.random()*0.9}rem;animation-duration:${9+Math.random()*12}s;animation-delay:${Math.random()*16}s`;
+    sc.appendChild(el);
+  }
+
+  // Audio
+  let soundEnabled=true, audioUnlocked=false;
+  const AC=window.AudioContext||window.webkitAudioContext;
+  let ctx;
+  const getCtx=()=>{if(!ctx)ctx=new AC();return ctx;};
+
+  function playTone(f1,f2,dur,type='sine',vol=0.18){
+    if(!soundEnabled)return;
+    const ac=getCtx(),osc=ac.createOscillator(),g=ac.createGain();
+    osc.connect(g);g.connect(ac.destination);
+    osc.type=type;osc.frequency.setValueAtTime(f1,ac.currentTime);
+    if(f2)osc.frequency.exponentialRampToValueAtTime(f2,ac.currentTime+dur*0.5);
+    g.gain.setValueAtTime(vol,ac.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+dur);
+    osc.start(ac.currentTime);osc.stop(ac.currentTime+dur);
+  }
+
+  function playWelcome(){
+    if(!soundEnabled)return;
+    const ac=getCtx();
+    [523,659,784,1047].forEach((f,i)=>{
+      const osc=ac.createOscillator(),g=ac.createGain();
+      osc.connect(g);g.connect(ac.destination);
+      osc.type='sine';osc.frequency.value=f;
+      const t=ac.currentTime+i*0.13;
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.16,t+0.04);g.gain.exponentialRampToValueAtTime(0.001,t+0.25);
+      osc.start(t);osc.stop(t+0.25);
+    });
+  }
+
+  function toggleSound(){
+    soundEnabled=!soundEnabled;
+    document.getElementById('soundBtn').textContent=soundEnabled?'🔊 Sound ON':'🔇 Sound OFF';
+    if(soundEnabled){playTone(600,900,0.18);}
+  }
+
+  // Unlock audio + play welcome on first interaction
+  document.addEventListener('click',function unlockAudio(){
+    if(!audioUnlocked){
+      audioUnlocked=true;
+      setTimeout(playWelcome,100);
+      document.removeEventListener('click',unlockAudio);
+    }
+  },{once:false});
+
+  // Burst + pop on click
+  const burstE=['✨','💖','🌸','⭐','🎀','💫','🍬'];
+  document.addEventListener('click',e=>{
+    playTone(600,900,0.15,'sine',0.15);
+    for(let i=0;i<3;i++){
+      const el=document.createElement('div');
+      el.className='burst';
+      el.textContent=burstE[Math.floor(Math.random()*burstE.length)];
+      el.style.cssText=`left:${e.clientX+(Math.random()-.5)*40}px;top:${e.clientY+(Math.random()-.5)*40}px;animation-delay:${i*0.05}s`;
+      document.body.appendChild(el);
+      setTimeout(()=>el.remove(),750);
+    }
+  });
+
+  // Card hover sound
+  document.querySelectorAll('.card').forEach(c=>{
+    c.addEventListener('mouseenter',()=>playTone(440,520,0.09,'sine',0.05));
+  });
+
+  // Link click sound
+  document.querySelectorAll('.link-btn').forEach(b=>{
+    b.addEventListener('click',e=>{e.stopPropagation();playTone(880,1400,0.11,'triangle',0.13);});
+  });
+</script>
+</body>
+</html>
